@@ -1,12 +1,12 @@
 import { ConvexError, v } from "convex/values"
 import { mutation, query } from "./_generated/server"
 
-
 export const storeProduct = mutation({
     args: {
         productTitle: v.string(),
         productPrice: v.number(),
         productLink: v.string(),
+        imageSrc: v.string(),
     },
     handler: async (ctx, args) => {
         const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier;
@@ -20,6 +20,7 @@ export const storeProduct = mutation({
             productPrice: args.productPrice,
             productLink: args.productLink,
             tokenIdentifier: userId,
+            imageSrc: args.imageSrc,
         });
     },
 })
@@ -38,3 +39,4 @@ export const getProducts = query({
         .collect();
     }
 })
+

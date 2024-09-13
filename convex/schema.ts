@@ -7,5 +7,6 @@ export default defineSchema({
     productPrice: v.number(),
     productLink: v.string(),
     tokenIdentifier: v.string(),
+    imageSrc: v.string(),
   }).index("by_tokenIdentifier", ["tokenIdentifier"]),
 });

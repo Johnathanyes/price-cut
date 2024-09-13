@@ -39,6 +39,7 @@ const UploadDocumentForm = () => {
             productTitle: scrapedProduct.title,
             productPrice: scrapedProduct.price,
             productLink: scrapedProduct.link,
+            imageSrc: scrapedProduct.imageSrc,
         });
     }
     return (
@@ -50,7 +51,7 @@ const UploadDocumentForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="Enter a link from either amazon or bestbuy" {...field} />
+                  <Input placeholder="Enter a link from either amazon or bestbuy" {...field} autoComplete="off"/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
