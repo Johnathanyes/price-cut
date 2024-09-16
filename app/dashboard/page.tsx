@@ -45,10 +45,7 @@ const page = () => {
       <div className="flex flex-row gap-6 px-20">
         {scrapedProducts?.map((product) => (
           <ProductCard
-            title={product.productTitle}
-            price={product.productPrice}
-            link={product.productLink}
-            image={product.imageSrc}
+            product={product}
           />
         ))}
         {scrapedProducts?.length == 0 && <div>No products</div>}
