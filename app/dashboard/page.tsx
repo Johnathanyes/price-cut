@@ -1,7 +1,7 @@
 "use client";
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
-import React from "react";
+import React, { useState } from "react";
 import UploadDocumentForm from "../components/upload-document-form";
 import {
   Dialog,
@@ -17,6 +17,8 @@ import { ShoppingCart } from "lucide-react";
 
 const page = () => {
   const scrapedProducts = useQuery(api.documents.getProducts);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   return (
     <main>
       <div className="m-10 flex flex-row justify-around gap-[600px]">
@@ -24,7 +26,7 @@ const page = () => {
           <h2 className="text-4xl font-bold">Saved Products</h2>
         </div>
         <div>
-          <Dialog>
+          <Dialog onOpenChange={setModalIsOpen} open={modalIsOpen}>
             <DialogTrigger asChild>
               <Button className="gap-2">
                 <ShoppingCart />
@@ -35,7 +37,7 @@ const page = () => {
               <DialogHeader>
                 <DialogTitle className="my-5">Upload Amazon or Bestbuy Product</DialogTitle>
                 <DialogDescription>
-                  <UploadDocumentForm />
+                  <UploadDocumentForm onUpload={() => setModalIsOpen(false)} />
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>

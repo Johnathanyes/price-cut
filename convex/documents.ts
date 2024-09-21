@@ -14,6 +14,17 @@ export const storeProduct = mutation({
         if (!userId) {
             throw new ConvexError("User not found")
         }
+        
+        const items = await ctx.db
+        .query("products")
+        .withIndex("by_tokenIdentifier", (q) => q.eq("tokenIdentifier", userId))
+        .collect();
+
+        items.forEach((item) => {
+            if (item.productLink == args.productLink) {
+                
+            }
+        })
 
         const productDocument = await ctx.db.insert("products", {
             productTitle: args.productTitle,

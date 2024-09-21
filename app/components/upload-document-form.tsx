@@ -22,7 +22,7 @@ const formSchema = z.object({
     link: z.string().regex(/amazon|bestbuy/i, { message: "Must contain either 'amazon' or 'bestbuy'" }),
 })
 
-const UploadDocumentForm = () => {
+const UploadDocumentForm = ({ onUpload }: {onUpload: () => void}) => {
     const scrapeAndStore = useMutation(api.documents.storeProduct);
     
     const form = useForm<z.infer<typeof formSchema>>({
@@ -41,6 +41,7 @@ const UploadDocumentForm = () => {
             productLink: scrapedProduct.link,
             imageSrc: scrapedProduct.imageSrc,
         });
+        onUpload();
     }
     return (
       <Form {...form}>
