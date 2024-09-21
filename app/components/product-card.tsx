@@ -9,29 +9,41 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { Doc } from "@/convex/_generated/dataModel";
+import Link from "next/link";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 const ProductCard = ({
-  title,
-  price,
-  link,
-  image,
+  product
 }: {
-  title: string;
-  price: number;
-  link: string;
-  image: string;
+  product: Doc<"products">
 }) => {
+
+  const getProduct = useQuery(api.documents.getProduct, {
+    productId: product._id,
+  })
+
+  const Button = () => {
+    
+  }
+
   return (
     <Card className="w-[300px]">
       <CardHeader>
-        <CardTitle className="max-h-[180px] text-md">{title}</CardTitle>
-        <CardDescription>Price: ${price}</CardDescription>
+        <CardTitle className="max-h-[180px] text-md">{product.productTitle}</CardTitle>
+        <CardDescription>Price: ${product.productPrice}</CardDescription>
       </CardHeader>
       <CardContent>
-        <Image src={image} width={50} height={50} alt="image of product"/>
-        <Button>
-            View Product
-        </Button>
+        <Image src={product.imageSrc} width={100} height={100} alt="image of product"/>
+        <div>
+          <Link href={`dashboard/${product._id}`}>
+            <Button className="mt-10">
+                View Product
+            </Button>
+          </Link>
+          <button onClick={Button}>Get</button>
+        </div>
       </CardContent>
     </Card>
   );
